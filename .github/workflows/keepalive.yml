@@ -1,13 +1,16 @@
 name: keepalive
 on:
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '30 1 * * *'
   workflow_dispatch:
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Supabase
+      - name: Ping and clean up
         run: |
           curl -fsS "https://bvthpkukkcyrrookvfnq.supabase.co/rest/v1/avvisi?select=id&limit=1" \
             -H "apikey: sb_publishable_Skenw7bXoNo81nRi_8mw_Q_uEu75OTt"
+          curl -fsS -X POST "https://bvthpkukkcyrrookvfnq.supabase.co/rest/v1/rpc/pulisci_passate" \
+            -H "apikey: sb_publishable_Skenw7bXoNo81nRi_8mw_Q_uEu75OTt" \
+            -H "Content-Type: application/json" -d '{}'
